@@ -1,6 +1,6 @@
 # Glea Clipper
 
-Browser extensions that collect from Chrome, Edge, Arc, Brave, Firefox and Safari into [Glea](../glea)'s journal and notes. They work like Obsidian's Web Clipper: the extension turns the page into Markdown and hands it to the app through a URL, and Glea writes the file.
+Browser extensions that collect from Chrome, Edge, Arc, Brave, Firefox and Safari into [Glea](https://github.com/daformat/glea)'s journal and notes. They work like Obsidian's Web Clipper: the extension turns the page into Markdown and hands it to the app through a URL, and Glea writes the file.
 
 ## What it collects
 
@@ -65,3 +65,7 @@ Glea must be a build that registers the `glea` URL scheme (with `ExternalCapture
 - Chrome asks *Open Glea?* for each site until you tick *Always allow*.
 - Article extraction is a heuristic: the densest block of paragraphs, widened to the `<article>` around it, minus navigation, share bars, comments and the like. It isn't Readability or Defuddle, so some layouts will need the selection instead.
 - Pages the browser doesn't let extensions script (its stores, settings pages, built-in PDF viewer) can only be collected as a link.
+
+## License
+
+Glea Clipper is source available under the [PolyForm Strict License 1.0.0](LICENSE.md), like [Glea](https://github.com/daformat/glea): you may read, build and use it for noncommercial purposes, but not change or redistribute it. For commercial use, contact the author.
