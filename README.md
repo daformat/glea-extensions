@@ -56,7 +56,7 @@ scripts/build.sh
 
 - **Chrome / Edge / Arc / Brave:** open `chrome://extensions`, turn on *Developer mode*, then *Load unpacked* and pick `dist/chrome`. `dist/glea-clipper-chrome-<version>.zip` is the Web Store upload.
 - **Firefox:** open `about:debugging#/runtime/this-firefox` and choose *Load Temporary Add-on…*, then pick `dist/firefox/manifest.json`. The `.zip` is the addons.mozilla.org upload.
-- **Safari:** `scripts/build.sh safari` generates `safari/Glea Clipper/Glea Clipper.xcodeproj` with Xcode's `safari-web-extension-converter`. Run it in Xcode once, then enable *Glea Clipper* in *Safari ▸ Settings ▸ Extensions*. For an unsigned build, first turn on *Develop ▸ Developer Settings ▸ Allow unsigned extensions*.
+- **Safari:** Glea Clipper for Safari ships inside Glea (`Glea.app/Contents/PlugIns/Glea Clipper.appex`): once Glea has run, enable *Glea Clipper* in *Safari ▸ Settings ▸ Extensions*. Glea's repo bundles `dist/safari` with `scripts/sync_clipper.sh` (which runs `scripts/build.sh safari-files`); run it after changing the extension, and the next Glea release carries it. For a stand-alone app instead, `scripts/build.sh safari` generates `safari/Glea Clipper/Glea Clipper.xcodeproj` with Xcode's `safari-web-extension-converter`. Unsigned builds need *Develop ▸ Developer Settings ▸ Allow unsigned extensions*.
 
 Glea must be a build that registers the `glea` URL scheme (with `ExternalCapture.swift`). Launch it once so macOS knows about it.
 

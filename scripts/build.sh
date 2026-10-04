@@ -4,7 +4,7 @@
 #   dist/firefox   Firefox (about:debugging, or the .zip for addons.mozilla.org)
 #   safari/        Xcode project wrapping it for Safari (with "safari")
 #
-#   scripts/build.sh [chrome|firefox|safari|all]
+#   scripts/build.sh [chrome|firefox|safari|safari-files|all]
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -44,11 +44,17 @@ m["browser_specific_settings"] = {"gecko": {"id": "clipper@glea.app", "strict_mi
 '
 }
 
-# Safari takes the Firefox-style background, wrapped in a macOS app by Xcode.
-safari() {
+# Safari takes the Firefox-style background. Glea bundles these files
+# (glea/scripts/sync_clipper.sh); "safari" also wraps them in a stand-alone
+# Xcode app.
+safari_files() {
   build safari '
 m["background"] = {"scripts": ["background.js"]}
 '
+}
+
+safari() {
+  safari_files
   rm -rf safari
   xcrun safari-web-extension-converter dist/safari \
     --project-location safari --app-name "Glea Clipper" \
@@ -62,6 +68,7 @@ case "$target" in
   chrome) chrome ;;
   firefox) firefox ;;
   safari) safari ;;
+  safari-files) safari_files ;;
   all) chrome; firefox; safari ;;
-  *) echo "usage: $0 [chrome|firefox|safari|all]" >&2; exit 1 ;;
+  *) echo "usage: $0 [chrome|firefox|safari|safari-files|all]" >&2; exit 1 ;;
 esac
