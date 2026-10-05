@@ -40,7 +40,9 @@ chrome() { build chrome "pass"; }
 firefox() {
   build firefox '
 m["background"] = {"scripts": ["background.js"]}
-m["browser_specific_settings"] = {"gecko": {"id": "clipper@glea.app", "strict_min_version": "115.0"}}
+# Data consent (Mozilla): nothing leaves the browser except to Glea on this Mac.
+m["browser_specific_settings"] = {"gecko": {"id": "clipper@glea.app", "strict_min_version": "140.0",
+                                            "data_collection_permissions": {"required": ["none"]}}}
 '
 }
 
