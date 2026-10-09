@@ -44,13 +44,13 @@ src/                 the extension (Manifest V3), shared by every browser
   manifest.json        Chrome's manifest; the build adapts it for Firefox and Safari
   background.js        context menu, shortcut, screenshots, sends glea:// URLs
   pns-driver.js        point and shoot: the ⌥ key and the link to the background
-  vendor/glea-content-script.js   Glea's own point-and-shoot script, unchanged
+  vendor/glea-content-script.js   Glea's own point-and-shoot script, unchanged (built in Glea with @daformat/point-and-shoot)
   capture.js           injected on demand: selection / article / image → Markdown
   popup.html/css/js    toolbar popup
 scripts/build.sh     builds dist/ and the Safari Xcode project
 ```
 
-Point and shoot runs Glea's own `content-script.js`. `pns-driver.js` plays the app's part around it: it turns the mode on while ⌥ is held, and passes captures to the background script through `__gleaNative.post()`. The background script sends them to Glea, then answers so the page can confirm. For a dragged area, it takes the screenshot with `tabs.captureVisibleTab`, crops it and sends it as a data URL, which Glea saves into `assets/`. `scripts/build.sh` copies the latest `content-script.js` from `../glea` when the checkout is there. `capture.js` (popup and context menu) has its own copy of the HTML → Markdown converter, so keep that in sync by hand.
+Point and shoot runs Glea's own `content-script.js`, which Glea builds from its `src/pns/glea-pns.ts` and the [@daformat/point-and-shoot](https://github.com/daformat/point-and-shoot) library. `pns-driver.js` plays the app's part around it: it turns the mode on while ⌥ is held, and passes captures to the background script through `__gleaNative.post()`. The background script sends them to Glea, then answers so the page can confirm. For a dragged area, it takes the screenshot with `tabs.captureVisibleTab`, crops it and sends it as a data URL, which Glea saves into `assets/`. `scripts/build.sh` copies the latest `content-script.js` from `../glea` when the checkout is there. `capture.js` (popup and context menu) has its own copy of the HTML → Markdown converter, so keep that in sync by hand.
 
 Point and shoot has to be in every page before you hold ⌥, so the extension asks for access to all sites (`<all_urls>`). The page script only reads the page when you collect. Without that permission, the popup and context menu still work through `activeTab`.
 
