@@ -8,9 +8,11 @@ Browser extensions that collect from Chrome, Edge, Arc, Brave, Firefox and Safar
 - **Safari:** comes with Glea: once Glea has run, enable *Glea Clipper* in *Safari ▸ Settings ▸ Extensions*.
 - **Chrome / Edge / Arc / Brave:** build it and load it unpacked (below).
 
+Outside Safari, Glea may not be on the Mac yet: installing the extension opens a welcome page with a link to download it, and the popup offers the link too when Glea doesn't open after a capture.
+
 ## What it collects
 
-- **Point and shoot**, as in Glea: hold **⌥ Option** on a page and a spotlight morphs onto the block under the pointer. **Click** to collect it, or **drag** to collect an area as a screenshot. With text selected, ⌥ collects the selection at once. Hold ⌥⌘ to collect posts and videos as text. A badge on the page confirms, and the capture goes to the popup's last destination (Today, or Glea's picker). ⌥ does nothing while you're typing in a field, so it still types characters there.
+- **Point and shoot**, as in Glea: hold **⌥ Option** on a page and a spotlight morphs onto the block under the pointer. **Click** to collect it, or **drag** to collect an area as a screenshot. With text selected, ⌥ collects the selection at once. Hold ⌥⌘ to collect posts and videos as text. The capture goes to the popup's last destination (Today, or Glea's picker). ⌥ does nothing while you're typing in a field, so it still types characters there.
 - **Toolbar popup** (⌥⇧G): the *selection*, the page's main content as an *article*, or just its *link*. It goes into *Today*'s journal, a *new note* (named after the page by default) or *Choose in Glea*, which opens Glea's capture picker. *Open Glea afterwards* shows where it went. Otherwise Glea hands focus back to the browser.
 - **Context menu:** *Collect Selection / Image / Link / Page to Glea* and *Clip Article to Glea*. These go to the popup's last destination: Today or Choose in Glea.
 - **Shortcut** ⌥⇧S: collects the selection, or the page's link when nothing is selected.
@@ -47,10 +49,11 @@ src/                 the extension (Manifest V3), shared by every browser
   vendor/glea-content-script.js   Glea's own point-and-shoot script, unchanged (built in Glea with @daformat/point-and-shoot)
   capture.js           injected on demand: selection / article / image → Markdown
   popup.html/css/js    toolbar popup
+  welcome.html/css     opened on install (not in Safari): Glea is needed, and where to get it
 scripts/build.sh     builds dist/ and the Safari Xcode project
 ```
 
-Point and shoot runs Glea's own `content-script.js`, which Glea builds from its `src/pns/glea-pns.ts` and the [@daformat/point-and-shoot](https://github.com/daformat/point-and-shoot) library. `pns-driver.js` plays the app's part around it: it turns the mode on while ⌥ is held, and passes captures to the background script through `__gleaNative.post()`. The background script sends them to Glea, then answers so the page can confirm. For a dragged area, it takes the screenshot with `tabs.captureVisibleTab`, crops it and sends it as a data URL, which Glea saves into `assets/`. `scripts/build.sh` copies the latest `content-script.js` from `../glea` when the checkout is there. `capture.js` (popup and context menu) has its own copy of the HTML → Markdown converter, so keep that in sync by hand.
+Point and shoot runs Glea's own `content-script.js`, which Glea builds from its `src/pns/glea-pns.ts` and the [@daformat/point-and-shoot](https://github.com/daformat/point-and-shoot) library. `pns-driver.js` plays the app's part around it: it turns the mode on while ⌥ is held, and passes captures to the background script through `__gleaNative.post()`. The background script sends them to Glea, then answers so the page can let go of the shot. For a dragged area, it takes the screenshot with `tabs.captureVisibleTab`, crops it and sends it as a data URL, which Glea saves into `assets/`. `scripts/build.sh` copies the latest `content-script.js` from `../glea` when the checkout is there. `capture.js` (popup and context menu) has its own copy of the HTML → Markdown converter, so keep that in sync by hand.
 
 Point and shoot has to be in every page before you hold ⌥, so the extension asks for access to all sites (`<all_urls>`). The page script only reads the page when you collect. Without that permission, the popup and context menu still work through `activeTab`.
 
