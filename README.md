@@ -12,9 +12,9 @@ Outside Safari, Glea may not be on the Mac yet: installing the extension opens a
 
 ## What it collects
 
-- **Point and shoot**, as in Glea: hold **⌥ Option** on a page and a spotlight morphs onto the block under the pointer. **Click** to collect it, or **drag** to collect an area as a screenshot. With text selected, ⌥ collects the selection at once. Hold ⌥⌘ to collect posts and videos as text. The capture goes to the popup's last destination (Today, or Glea's picker). ⌥ does nothing while you're typing in a field, so it still types characters there.
-- **Toolbar popup** (⌥⇧G): the *selection*, the page's main content as an *article*, or just its *link*. It goes into *Today*'s journal, a *new note* (named after the page by default) or *Choose in Glea*, which opens Glea's capture picker. *Open Glea afterwards* shows where it went. Otherwise Glea hands focus back to the browser.
-- **Context menu:** *Collect Selection / Image / Link / Page to Glea* and *Clip Article to Glea*. These go to the popup's last destination: Today or Choose in Glea.
+- **Point and shoot**, as in Glea: hold **⌥ Option** on a page and a spotlight morphs onto the block under the pointer. **Click** to collect it, or **drag** to collect an area as a screenshot. With text selected, ⌥ collects the selection at once. Hold ⌥⌘ to collect posts and videos as text. The capture goes where the popup's *Into* says (a new note is named after the page), and opens Glea if *Open Glea afterwards* is on. ⌥ does nothing while you're typing in a field, so it still types characters there.
+- **Toolbar popup** (⌥⇧G): the *selection*, the page's main content as an *article*, or just its *link*. It goes into *Today*'s journal, a *new note* (named after the page by default) or *Choose in Glea*, which opens Glea's capture picker. *Open Glea afterwards* shows where it went. Otherwise Glea hands focus back to the browser. Both are kept as you set them, for everything below too.
+- **Context menu:** *Collect Selection / Image / Link / Page to Glea* and *Clip Article to Glea*. These follow the popup's *Into* and *Open Glea afterwards*.
 - **Shortcut** ⌥⇧S: collects the selection, or the page's link when nothing is selected.
 
 Captures look like Glea's own point-and-shoot captures: a quote with a link back to the page, an image credited below it, or `- [Title](url)` for a link. Images are downloaded into `assets/`. An article becomes the note's body under a link to its source.
